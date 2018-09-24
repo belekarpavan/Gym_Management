@@ -1,5 +1,10 @@
+<%@page import="java.io.ObjectInputStream.GetField"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="java.io.*,com.logic.*" %>
+   <%
+  // @MultipartConfig(maxFileSize=10485760);
+   %>
 
     <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +20,7 @@
 <body>
 <%@ include file="index.jsp" %>  
 <div class="container">
-    <form name="frmgallery" action="" method="POST">
+    <form name="frmgallery" action="ImageUpload" method="POST" enctype="multipart/form-data">
         <div class="panel panel-default">
       <div class="panel-heading"><strong>Add Gallery </strong></div>
       <div class="panel-body">
@@ -32,7 +37,7 @@
     <div class="col-lg-6 col-sm-6 col-sx-6">
      <div class="form-group">
                   <label for="exampleInputFile">Photo</label>
-                  <input type="file" name="file" id="exampleInputFile">
+                  <input type="file" name="path" id="exampleInputFile">
     </div>
   </div>
 
@@ -59,6 +64,8 @@
 
 <!--end tag-->
 </div>
+
+
 </div>
 </form>
 </div>

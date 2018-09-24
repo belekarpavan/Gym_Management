@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="com.logic.*,java.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,26 +36,26 @@
     
       <label for="title">Gym Type:</label>
       
-                <select class="form-control select2" name="type" style="width: 100%;">
+                <select class="form-control select2" name="gymtypeid" style="width: 100%;">
+                	<option value="-1" selected> ~ Select Gym Type ~</option>
+               <%
+               		DB db=new DB();
+               		List<gymTypeDAO> list=db.getAllGymType();
+               		
+               		for (gymTypeDAO gym : list) {
+            			//System.out.println(str);
+            	%>		
+            		<option value="<%=gym.getId() %>"><%=gym.getName() %></option>	
+            	<%	
+            		}
+                       
+               
+               %>   
+          
                   
-           <?php
-            $result=mysql_query("select * from gym_type1");
-            $rowcount=mysql_num_rows($result);
-              if($rowcount>0)
-                {
-                  while($row=mysql_fetch_array($result))
-                    {
-                  ?>
-                  
-                  
-   <option value="<?php echo $row[0];?>"><?php echo $row[1];?></option>
+   		
    
-   
-  <?php
-   }
-                }
-   ?>
-   
+  
    
    
     </select>
@@ -96,6 +97,34 @@
 
 <!--end tag-->
 </div>
+
+<jsp:useBean id="shift" class="com.logic.gymShiftDAO" scope="page">
+  <jsp:setProperty name="shift" property="*"/>
+</jsp:useBean>
+
+<%
+String button=request.getParameter("s");
+if(button!=null)
+{
+
+	 //DB db=new DB();
+	boolean b=db.gymShiftSave(shift);
+	 if(b)
+	 {
+	%>
+	<h3 class="text-success text-center">Record Save Successfully...</h3>
+	<%	 
+	 }
+	 else
+	 {
+	%>
+	<h3 class="text-danger text-center">Failed to Save..</h3>
+	<% 	 
+ 	}
+}
+%>
+
+
 </div>
 </form>
 </div>
